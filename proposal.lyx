@@ -1,0 +1,525 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass amsart
+\begin_preamble
+\usepackage{graphicx}
+\usepackage{pdflscape}
+\usepackage[cm]{fullpage}
+\end_preamble
+\use_default_options true
+\begin_modules
+theorems-ams
+eqs-within-sections
+figs-within-sections
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman ae
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 10
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip bigskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+MAT3395 Proposal
+\begin_inset Newline newline
+\end_inset
+
+Cooperation in a Society of Individuals
+\end_layout
+
+\begin_layout Author
+Mohammed Chamma 6379153
+\begin_inset Newline newline
+\end_inset
+
+Stewart Clelland 6490111
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+\bar under
+Objectives
+\end_layout
+
+\begin_layout Standard
+The goal of the proposed project is to model a society of individiuals,
+ be they human, animal, or otherwise, and to study the levels of cooperation
+ in the society.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+\bar under
+Background
+\end_layout
+
+\begin_layout Standard
+That cooperation should exist in a society of beings that evolved through
+ competition and survival of the fittest seems paradoxical.
+ Cooperation often puts one's own survival in jeapordy, especially if the
+ others don't cooperate with you.
+ For example, if you share your limited food with another, who is either
+ unwilling or unable to share their food with you.
+ Yet cooperation exists in force, in the colonies of bees or ants, in shoals
+ of fish, in business (through sponsorships and investment for example),
+ in politics through alliances and treaties and so on.
+\end_layout
+
+\begin_layout Standard
+The Prisoner's Dilemma is a game that is often used as a model for the emergence
+ of cooperation.
+\end_layout
+
+\begin_layout Standard
+In Prisoner's Dilemma, two robbers are caught and placed in separate interrogati
+on rooms.
+ The police have enough evidence to imprison both for 1 year, (say, they
+ found a gun) but not enough evidence to convict for a maximum of 10 years.
+ The police require a confession, so they tell each of the robbers that
+ if they rat out the other (or 
+\emph on
+Defect
+\emph default
+), they will get immunity.
+ Now each robber can choose to either 
+\emph on
+Defect
+\emph default
+ to the police and rat out the other or 
+\emph on
+Cooperate
+\emph default
+ with their partner and not tell the police anything.
+ 
+\end_layout
+
+\begin_layout Standard
+If both Defect, then the police didn't need the confession of one to convict
+ the other, so neither get immunity.
+ The judge would take into account that they confessed and gives both 8
+ years in jail.
+\end_layout
+
+\begin_layout Standard
+If both Cooperate, then the police have no new evidence and can only convict
+ for the evidence they have.
+ Both get 1 year in jail.
+\end_layout
+
+\begin_layout Standard
+If one Defects while the other Cooperates, then the defector gets immunity
+ (0 years in jail!) while the other gets the maximum sentence of 10 years.
+\end_layout
+
+\begin_layout Standard
+Imagine you're one of the robbers in the cell.
+ You know that if the other Defects, you should Defect too, otherwise you'll
+ get 10 years.
+ You also know that if the other Cooperates then you should, again, defect,
+ so that you get immunity.
+ Regardless of what the other does you conclude that you should defect.
+\end_layout
+
+\begin_layout Standard
+In this example, both defect and both get 8 years in jail each.
+ 
+\end_layout
+
+\begin_layout Standard
+Now consider being put in this scenario multiple times.
+ This is called the Iterated Prisoner's Dilemma.
+ Eventually you notice that if you and your partner make the same decision
+ you did the first time you will always end up with 8 years in jail.
+ Collectively, this is 16 years in jail.
+ However, if both choose to cooperate, then each get 1 year in jail.
+ Even though you'd rather go free than be in jail, you'd rather be in jail
+ for a year rather than 8.
+ So, over time (over repeated plays) cooperating can be the better behaviour
+ for oneself and for the common good.
+\end_layout
+
+\begin_layout Standard
+To extend this idea to model a society, one can follow the steps of M.
+ Nowak and R.
+ May in 
+\begin_inset Quotes eld
+\end_inset
+
+Evolutionary games and Spatial Chaos
+\begin_inset Quotes erd
+\end_inset
+
+ (1992) (found here: 
+\bar under
+
+\begin_inset CommandInset href
+LatexCommand href
+target "http://projects.iq.harvard.edu/files/ped/files/nature92.pdf"
+
+\end_inset
+
+
+\bar default
+) where they created a two-dimensional grid and filled it with a population
+ of individuals (or individual groups).
+ In their paper each individual either always cooperates or always defects.
+ Then, each turn, the individual plays Prisoner's Dilemma with all of it's
+ neighbours, and gets a total score (or payoff).
+ The next turn, each cell becomes occupied by the neighbour with the best
+ payoff.
+ Thus, they modelled a society as a two-dimensional grid of individuals
+ and could observe the population of cooperators and defectors as the society
+ evolved or 
+\begin_inset Quotes eld
+\end_inset
+
+played
+\begin_inset Quotes erd
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+\bar under
+Methods
+\end_layout
+
+\begin_layout Standard
+The first step is to represent the possible outcomes using what's called
+ a 
+\begin_inset Quotes eld
+\end_inset
+
+payoff
+\begin_inset Quotes erd
+\end_inset
+
+ matrix.
+ That is, the 1 year in jail payoff for both robbers cooperating becomes
+ the Reward 
+\begin_inset Formula $R=-1$
+\end_inset
+
+, the 8 years for both robbers defecting is the Punishment 
+\begin_inset Formula $P=-8$
+\end_inset
+
+, the immunity the defector gets is the temptation 
+\begin_inset Formula $T=0$
+\end_inset
+
+ and the robber who cooperates while the other defects gets the Sucker's
+ Payoff 
+\begin_inset Formula $S=-10$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+If a robber cooperates, we denote it by C.
+ If a robber defects, we denote it by D.
+ So CC means both cooperate, CD, means one cooperated and the other defected,
+ etc.
+ The payoff matrix is this matrix
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\left[\begin{array}{cc}
+CC & CD\\
+DC & DD
+\end{array}\right]=\left[\begin{array}{cc}
+R & S\\
+T & P
+\end{array}\right]=\left[\begin{array}{cc}
+-1 & -10\\
+0 & -8
+\end{array}\right]
+\]
+
+\end_inset
+
+In general you just need 
+\begin_inset Formula $T>R>P>S$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In our model we will use Matlab or Javascript to create a two dimensional
+ board where we can simulate the 
+\begin_inset Quotes eld
+\end_inset
+
+society
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Each cell will either be a cooperator or a defector.
+ We will not study any of the many strategies (like tit-for-tat, etc.) that
+ exist.
+ Instead, a cell either always cooperates or always defects.
+ The simulation will proceed as follows: 
+\end_layout
+
+\begin_layout Enumerate
+Pick a cell.
+ The cell plays the game with each of its 8 neighbours.
+ The payoff the cell gets is determined by the payoff matrix.
+ After playing with each neighbour one by one, the cell has a total payoff.
+ Do this for each cell.
+\end_layout
+
+\begin_layout Enumerate
+Pick a cell.
+ Out of itself and all of its neighbours, find the one that has the best
+ payoff.
+ If the one with the best payoff is a defector, the cell becomes a defector
+ in the next round.
+ If it is a cooperator, the cell becomes a cooperator in the next round.
+\end_layout
+
+\begin_layout Standard
+This will give us an evolving grid of cooperators and defectors, and the
+ populations will fluctuate.
+\end_layout
+
+\begin_layout Standard
+To simplify our exploration we can set the cost matrix to
+\begin_inset Formula 
+\[
+\left[\begin{array}{cc}
+1 & 0\\
+b & \epsilon
+\end{array}\right]
+\]
+
+\end_inset
+
+Where 
+\begin_inset Formula $b>1=R$
+\end_inset
+
+ and 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+ is an arbitrarily small number (so that 
+\begin_inset Formula $T>R>P>S$
+\end_inset
+
+ is still true.).
+ Then, 
+\begin_inset Formula $b$
+\end_inset
+
+ represents the advantage defectors have over cooperators.
+ However, defectors get little to no payoff when playing with another defector.
+ So defectors will always require some presence of a cooperator in the vicinity
+ to survive.
+ By playing with the value of 
+\begin_inset Formula $b$
+\end_inset
+
+ we explore how large a population of defectors can grow, and thus, how
+ small a population of cooperators becomes.
+ The analysis here will be similar to the analysis we did in class with
+ the forest tent caterpillar.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+\bar under
+Expected Outcome
+\end_layout
+
+\begin_layout Standard
+Our methods will allow us to count the frequency of defectors and cooperators
+ in the 
+\begin_inset Quotes eld
+\end_inset
+
+society
+\begin_inset Quotes erd
+\end_inset
+
+.
+ For different values of 
+\begin_inset Formula $b$
+\end_inset
+
+, we will see the dynamics over time of the two populations.
+ Do they oscillate? Do they stabilise around a fixed value? Is there ever
+ a case where the cooperators dominate and eliminate the defectors? Is there
+ a 
+\begin_inset Formula $b$
+\end_inset
+
+ where the defectors eliminate the cooperators and thus worsen the overall
+ situation for everyone? 
+\end_layout
+
+\begin_layout Standard
+In Nowak and May, they color coded their two-dimensional world and were
+ able to find very interesting spatial structures.
+ We should be able to reproduce these pretty pictures.
+\end_layout
+
+\begin_layout Standard
+With our project we will also be able to observe what will happen if the
+ initial population is predominantly defectors or predominantly cooperators.
+ So for fixed values of 
+\begin_inset Formula $b$
+\end_inset
+
+, we vary the starting proportions and analyse the resulting populations.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+\bar under
+References
+\end_layout
+
+\begin_layout Standard
+Nowak MA, RM May (1992).
+ Evolutionary games and spatial chaos.
+ Nature 359: 826-829.
+ 
+\bar under
+
+\begin_inset CommandInset href
+LatexCommand href
+target "http://dx.doi.org/10.1038/359826a0"
+
+\end_inset
+
+
+\bar default
+.
+ 
+\bar under
+
+\begin_inset CommandInset href
+LatexCommand href
+name "PDF"
+target "http://projects.iq.harvard.edu/files/ped/files/nature92.pdf"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Nowak MA, RM May (1993).
+ The spatial dilemmas of evolution.
+ Int J Bifurcat Chaos 3: 35-78.
+\bar under
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+target "http://dx.doi.org/10.1142/S0218127493000040"
+
+\end_inset
+
+
+\bar default
+.
+ 
+\bar under
+
+\begin_inset CommandInset href
+LatexCommand href
+name "PDF"
+target "http://projects.iq.harvard.edu/files/ped/files/ijbc93.pdf"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Quotes eld
+\end_inset
+
+Game Theoretical Models in Biology
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Mark Broom.
+ 2013.
+ pg.
+ 55-58
+\end_layout
+
+\end_body
+\end_document
