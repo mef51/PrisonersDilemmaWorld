@@ -1,5 +1,5 @@
 function prisonerworld
-    size = 10;
+    size = 6;
     % 0 denotes a Defector, 1 denotes a Cooperator
     World = randi([0 1], size, size); 
     
@@ -51,15 +51,6 @@ function prisonerworld
     % 1 denotes a Cooperator
     function result = game(m, n, i, j)
         result = -1;
-        % self interaction
-        if m == i && n == j
-            if World(m, n) == 0
-                result = P;
-            else % World(i, j) == 1
-                result = R;
-            end
-        end
-
         if World(m, n) == 1
             if World(i, j) == 0
                 result = S;
