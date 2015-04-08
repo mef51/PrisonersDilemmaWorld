@@ -1,30 +1,48 @@
 function prisonerworld
     % Prisoner's Dilemma Payoffs: T > R > P > S
-    T = 11;  % Temptation. may and nowak vary this parameter to get their results
-    R = 10;  % Reward.
+    T = 1.9;  % Temptation. may and nowak vary this parameter to get their results
+    R = 1;  % Reward.
     P = 0;   % Punishment. technically this is some arbitrarily small number > 0
     S = 0;   % Sucker's Payoff.
 
-    size = 3;
-    generations = 5;
+    size = 99;
+    generations = 50;
+    DEFECTOR = 0; % a constant, don't change this lel
+    COOPERATOR = 1; % don't change this either lel
     % 0 denotes a Defector, 1 denotes a Cooperator
-    World = randi([0 1], size, size); 
+    %World = randi([DEFECTOR COOPERATOR], size, size);
+    World = ones(size,size)*COOPERATOR;
+    World(floor(size/2), floor(size/2)) = DEFECTOR;
     % this matrix holds the total score a cell obtains after playing with all its neighbours
     score = updateWorldScores();
     % spit out the initial world and score
+    %{
     World
     score
+    %}
     
+    hmo = HeatMap(World);
+    fig = plot(hmo);
+    frames(1) = getframe(fig);
+    close all hidden; % HeatMaps have hidden handles
     for step = 1:generations
         % let the new world begin
         World = updateWorld(World, score);
         score = updateWorldScores();
+        hmo = HeatMap(World);
+        fig = plot(hmo);
+        frames(step+1) = getframe(fig);
+        close all hidden;
 
         % spit out the new world and the results in the console
+        %{
         step
         World
         score
+        %}
     end
+    figure
+    movie(frames, 10)
 
     % for each cell, calculate the score it gains from interacting with its neighbours
     function newScores = updateWorldScores()
@@ -94,17 +112,17 @@ function prisonerworld
     % 1 denotes a Cooperator
     function result = game(m, n, i, j)
         result = -1;
-        if World(m, n) == 1
-            if World(i, j) == 0
+        if World(m, n) == COOPERATOR
+            if World(i, j) == DEFECTOR
                 result = S;
-            else % World(i, j) == 1
+            else % World(i, j) == COOPERATOR
                 result = R;
             end
         end
-        if World(m, n) == 0
-            if World(i, j) == 0
+        if World(m, n) == DEFECTOR
+            if World(i, j) == DEFECTOR
                 result = P;
-            else % World(i, j) == 1
+            else % World(i, j) == COOPERATOR
                 result = T;
             end
         end
