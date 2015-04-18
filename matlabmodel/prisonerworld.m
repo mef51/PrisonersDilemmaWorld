@@ -7,6 +7,9 @@ function prisonerworld
 
     size = 99;
     generations = 50;
+    generationElapsed = 1;
+    population = zeros(size,2);%Keeps track of the cooperator/defectors
+                          %for each iteration
     DEFECTOR = 0; % a constant, don't change this lel
     COOPERATOR = 1; % don't change this either lel
     % 0 denotes a Defector, 1 denotes a Cooperator
@@ -23,12 +26,14 @@ function prisonerworld
     
     hmo = HeatMap(World);
     fig = plot(hmo);
+    
     frames(1) = getframe(fig);
     close all hidden; % HeatMaps have hidden handles
     for step = 1:generations
         % let the new world begin
         World = updateWorld(World, score);
         score = updateWorldScores();
+        getNewData();        
         hmo = HeatMap(World);
         fig = plot(hmo);
         frames(step+1) = getframe(fig);
@@ -40,9 +45,18 @@ function prisonerworld
         World
         score
         %}
-    end
+    end   
+    
     figure
     movie(frames, 10)
+    %grabs data for the number of each population at every step
+    function populationData = getNewData()
+        population(generationElapsed,1)=sum(sum(World));
+        population(generationElapsed,2)=(size*size)-population(generationElapsed,1);
+        generationElapsed=generationElapsed+1;
+    end
+    
+        
 
     % for each cell, calculate the score it gains from interacting with its neighbours
     function newScores = updateWorldScores()
