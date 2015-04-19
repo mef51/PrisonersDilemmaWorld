@@ -1,68 +1,72 @@
-function prisonerworld
+% Simulates a PrisonersDilemmaWorld and saves a population graph, a video of the world, and
+% the last frame of the video as an image.
+% Pass in:
+% simName - a string that identifies the experiment you're running
+% World - a square matrix filled with DEFECTORs and COOPERATORS. You pick how you want the world.
+% generations - a number, the number of generations to simulate
+% b - the Temptation. This is the parameter from Nowak & May's paper.
+function prisonerworld(simName, World, generations, b)
     % Prisoner's Dilemma Payoffs: T > R > P > S
-    T = 1.9;  % Temptation. may and nowak vary this parameter to get their results
+    T = b;  % Temptation. may and nowak vary this parameter to get their results
     R = 1;  % Reward.
     P = 0;   % Punishment. technically this is some arbitrarily small number > 0
     S = 0;   % Sucker's Payoff.
-
-    size = 99;
-    generations = 50;
-    generationElapsed = 1;
-    population = zeros(size,2);%Keeps track of the cooperator/defectors
-                          %for each iteration
     DEFECTOR = 0; % a constant, don't change this lel
     COOPERATOR = 1; % don't change this either lel
-    % 0 denotes a Defector, 1 denotes a Cooperator
-    %World = randi([DEFECTOR COOPERATOR], size, size);
-    World = ones(size,size)*COOPERATOR;
-    World(floor(size/2), floor(size/2)) = DEFECTOR;
+
+    worldSize = size(World, 1); % we're assuming World is a square matrix here
+
+    if ~exist('results', 'dir')
+        mkdir('results'); % dis is where we dump the results
+    end
+
     % this matrix holds the total score a cell obtains after playing with all its neighbours
     score = updateWorldScores();
-    % spit out the initial world and score
-    %{
-    World
-    score
-    %}
+    populationCount = zeros(generations, 2); % Keeps track of the cooperator/defectors for each iteration
     
     hmo = HeatMap(World);
     fig = plot(hmo);
     
-    frames(1) = getframe(fig);
+    simVideo(1) = getframe(fig);
     close all hidden; % HeatMaps have hidden handles
     for step = 1:generations
+        updatePopCount(step);
         % let the new world begin
         World = updateWorld(World, score);
         score = updateWorldScores();
-        getNewData();        
         hmo = HeatMap(World);
         fig = plot(hmo);
-        frames(step+1) = getframe(fig);
+        if step == generations
+            print(strcat('results/', simName,'_FinalState'),'-dpng');
+        end
+        simVideo(step+1) = getframe(fig);
         close all hidden;
-
-        % spit out the new world and the results in the console
-        %{
-        step
-        World
-        score
-        %}
     end   
     
-    figure
-    movie(frames, 10)
+    %figure
+    movie(simVideo, 1);
+    movie2avi(simVideo, strcat('results/', simName,'_World'), 'compression', 'None');
+    plot(1:generations, populationCount(:,1), 1:generations, populationCount(:,2));
+    xlabel('Generations');
+    ylabel('Population');
+    title(strcat(simName, ': Population over time'));
+    legend('Cooperators', 'Defectors');
+    print(strcat('results/', simName,'_Population'),'-dpng');
+
+    close all; % finished
+
     %grabs data for the number of each population at every step
-    function populationData = getNewData()
-        population(generationElapsed,1)=sum(sum(World));
-        population(generationElapsed,2)=(size*size)-population(generationElapsed,1);
-        generationElapsed=generationElapsed+1;
+    function updatePopCount(step)
+        numCooperators = sum(World(:) == COOPERATOR); % this is such a cool trick haha
+        populationCount(step, 1) = numCooperators;
+        populationCount(step, 2) = (worldSize*worldSize) - numCooperators;
     end
-    
-        
 
     % for each cell, calculate the score it gains from interacting with its neighbours
     function newScores = updateWorldScores()
-        newScores = zeros(size, size);
-        for m = 1:size
-            for n = 1:size
+        newScores = zeros(worldSize, worldSize);
+        for m = 1:worldSize
+            for n = 1:worldSize
                 newScores(m, n) = getScoreFromInteractions(m, n);
             end
         end
@@ -70,9 +74,9 @@ function prisonerworld
 
     % update the world for the next generation
     function newWorld = updateWorld(oldWorld, oldScores)
-        newWorld = zeros(size, size);
-        for m = 1:size
-            for n = 1:size
+        newWorld = zeros(worldSize, worldSize);
+        for m = 1:worldSize
+            for n = 1:worldSize
                 newWorld(m, n) = findRoleModel(m, n, oldWorld, oldScores);
             end
         end
@@ -86,7 +90,7 @@ function prisonerworld
         roleModel = oldWorld(m, n);
         for i = -1:1
             for j = -1:1
-                if m+i <= size && m+i >= 1 && n+j <= size && n+j >= 1
+                if m+i <= worldSize && m+i >= 1 && n+j <= worldSize && n+j >= 1
                     s = oldScores(m+i, n+j);
                     r = oldWorld(m+i, n+j);
                     if maxScore < s
@@ -112,7 +116,7 @@ function prisonerworld
                 % that cells on the border will have fewer neighbours to
                 % play with. If we want, we can 'wraparound' our indices to
                 % represent a circular pacman-like world.
-                if m+i <= size && m+i >= 1 && n+j <= size && n+j >= 1
+                if m+i <= worldSize && m+i >= 1 && n+j <= worldSize && n+j >= 1
                     s = s + game(m, n, m+i, n+j);
                 end
             end
