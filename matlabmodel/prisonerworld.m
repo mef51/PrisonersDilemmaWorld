@@ -13,6 +13,7 @@ function prisonerworld(simName, World, generations, b)
     S = 0;   % Sucker's Payoff.
     DEFECTOR = 0; % a constant, don't change this lel
     COOPERATOR = 1; % don't change this either lel
+    cmap = copper(2);
 
     worldSize = size(World, 1); % we're assuming World is a square matrix here
 
@@ -24,8 +25,14 @@ function prisonerworld(simName, World, generations, b)
     score = updateWorldScores();
     populationCount = zeros(generations, 2); % Keeps track of the cooperator/defectors for each iteration
     
-    hmo = HeatMap(World);
-    fig = plot(hmo);
+    legendSpot = 'northoutside';
+    fig = figure();
+    colormap(cmap);
+    imagesc(World);
+    % a weird trick to get a legend to show up
+    L = line(ones(2), ones(2), 'LineWidth',5);
+    set(L, {'color'}, mat2cell(cmap, ones(1, 2), 3));
+    legend('Defector', 'Cooperator', 'Location', legendSpot, 'Orientation','horizontal');
     
     simVideo(1) = getframe(fig);
     close all hidden; % HeatMaps have hidden handles
@@ -34,8 +41,14 @@ function prisonerworld(simName, World, generations, b)
         % let the new world begin
         World = updateWorld(World, score);
         score = updateWorldScores();
-        hmo = HeatMap(World);
-        fig = plot(hmo);
+
+        fig = figure();
+        colormap(cmap);
+        imagesc(World);
+        L = line(ones(2), ones(2), 'LineWidth',5);
+        set(L, {'color'}, mat2cell(cmap, ones(1, 2), 3));
+        legend('Defector', 'Cooperator', 'Location', legendSpot, 'Orientation','horizontal');
+
         if step == generations
             print(strcat('results/', simName,'_FinalState'),'-dpng');
         end
@@ -44,7 +57,7 @@ function prisonerworld(simName, World, generations, b)
     end   
     
     %figure
-    movie(simVideo, 1);
+    %movie(simVideo, 1);
     movie2avi(simVideo, strcat('results/', simName,'_World'), 'compression', 'None');
     plot(1:generations, populationCount(:,1), 1:generations, populationCount(:,2));
     xlabel('Generations');
