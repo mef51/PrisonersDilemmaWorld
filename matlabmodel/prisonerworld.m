@@ -32,18 +32,18 @@ function prisonerworld(simName, World, generations, b)
     legendSpot = 'northoutside';
     fig = figure();
     colormap(cmap);
-    image(World);
+    image(World+1); % add one cuz colormap indexing starts at 1.
+    xlabel(strcat('Generation: ', '0'));
     
     % a weird trick to get a legend to show up
     L = line(ones(numColors), ones(numColors), 'LineWidth', 5);
     set(L, {'color'}, mat2cell(cmap, ones(1, numColors), 3));
-    legend('Cooperator', 'Defector', 'DtoC', 'CtoD', 'Location', legendSpot, 'Orientation','horizontal');
+    legend('Defector', 'Cooperator', 'DtoC', 'CtoD', 'Location', legendSpot, 'Orientation','horizontal');
     
     simVideo(1) = getframe(fig);
-    close all hidden; % HeatMaps have hidden handles
+    close all hidden;
     for step = 1:generations
         updatePopCount(step);
-        % let the new world begin
         
         oldWorld = World;
         
@@ -51,14 +51,14 @@ function prisonerworld(simName, World, generations, b)
         score = updateWorldScores();
         
         colorWorld = computeDifferences(oldWorld, World);
-
         fig = figure();
         colormap(cmap);
-        image(colorWorld);
+        image(colorWorld+1); % add one cuz colormap indexing starts at 1.
+        xlabel(strcat('Generation: ', num2str(step)));
         L = line(ones(numColors), ones(numColors), 'LineWidth',5);
         set(L, {'color'}, mat2cell(cmap, ones(1, numColors), 3));
-        legend('Cooperator', 'Defector', 'DtoC', 'CtoD', 'Location', legendSpot, 'Orientation','horizontal');
-        print(strcat('results/', simName,'_State', num2str(step)),'-dpng');
+        legend('Defector', 'Cooperator', 'DtoC', 'CtoD', 'Location', legendSpot, 'Orientation','horizontal');
+
         if step == generations
             print(strcat('results/', simName,'_FinalState'),'-dpng');
         end
@@ -85,17 +85,13 @@ function prisonerworld(simName, World, generations, b)
         for m = 1:worldSize
             for n = 1:worldSize
                 if difference(m, n) == DEFECTOR - COOPERATOR
-                    diffWorld(m, n) = DtoC;
+                    diffWorld(m, n) = CtoD;
                 end
                 if difference(m, n) == COOPERATOR - DEFECTOR
-                    diffWorld(m, n) = CtoD;
+                    diffWorld(m, n) = DtoC;
                 end
             end
         end
-        initialWorld
-        finalWorld
-        difference
-        diffWorld
     end
     
     %grabs data for the number of each population at every step
