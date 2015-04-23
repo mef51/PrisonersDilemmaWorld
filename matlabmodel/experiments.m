@@ -8,9 +8,9 @@ generations = 200;
 % Experiment: 1 Defector in the middle of a World of cooperators 
 simName = 'DoilyExperiment';
 b = 1.9;
-%World = ones(worldSize,worldSize)*COOPERATOR;
-%World(round(worldSize/2), round(worldSize/2)) = DEFECTOR;
-%prisonerworld(simName, World, generations, b);
+World = ones(worldSize,worldSize)*COOPERATOR;
+World(round(worldSize/2), round(worldSize/2)) = DEFECTOR;
+prisonerworld(simName, World, generations, b);
 
 %Experiment: Alternating 1 and 0 throughout the matrix
 simName = 'UniformAlternating';
