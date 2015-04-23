@@ -2,8 +2,8 @@
 DEFECTOR = 0; % a constant, don't change this lel
 COOPERATOR = 1; % don't change this either lel
 
-worldSize = 200;
-generations = 200;
+worldSize = 30;
+generations = 30;
 
 % Experiment: 1 Defector in the middle of a World of cooperators 
 simName = 'DoilyExperiment';
@@ -31,7 +31,7 @@ end
 prisonerworld(simName, World, generations, b);
 
 
-simName = 'Uniform Percentage''
+simName = 'Uniform Percentage';
 World = ones(worldSize, worldSize)*DEFECTOR;
 percentage = 0.1; %set percent of cooperators
 final_coop = round(percentage*(worldSize*worldSize));
@@ -44,3 +44,4 @@ while (sofar_coop<final_coop)
         sofar_coop=sofar_coop+1;
     end
 end
+prisonerworld(simName, World, generations, b);
