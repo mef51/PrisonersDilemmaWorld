@@ -33,7 +33,7 @@ function prisonerworld(simName, World, generations, b)
     fig = figure();
     colormap(cmap);
     image(World+1); % add one cuz colormap indexing starts at 1.
-    xlabel(strcat('Generation: ', '0'));
+    xlabel(strcat('Generation: ', '0', ', b = ', num2str(b)));
     
     % a weird trick to get a legend to show up
     L = line(ones(numColors), ones(numColors), 'LineWidth', 5);
@@ -54,7 +54,7 @@ function prisonerworld(simName, World, generations, b)
         fig = figure();
         colormap(cmap);
         image(colorWorld+1); % add one cuz colormap indexing starts at 1.
-        xlabel(strcat('Generation: ', num2str(step)));
+        xlabel(strcat('Generation: ', num2str(step), ', b = ', num2str(b)));
         L = line(ones(numColors), ones(numColors), 'LineWidth',5);
         set(L, {'color'}, mat2cell(cmap, ones(1, numColors), 3));
         legend('Defector', 'Cooperator', 'DtoC', 'CtoD', 'Location', legendSpot, 'Orientation','horizontal');

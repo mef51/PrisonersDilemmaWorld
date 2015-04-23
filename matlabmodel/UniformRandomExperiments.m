@@ -9,52 +9,34 @@ generations = 200;
 % make a random world and use it over and over so all the initial worlds are the same
 World = randi([DEFECTOR COOPERATOR], worldSize, worldSize);
 
-% Experiment: Random distribution of defectors and cooperators
-simName = 'UniformRandomExperiment1-1';
-b = 1.1;
-prisonerworld(simName, World, generations, b);
+% Experiment: Uniform Random distribution of defectors and cooperators
+b = 1.1:0.1:2.0;
+for i = 1:length(b)
+    temptation = b(i);
+    suffix = strrep(num2str(temptation), '.', '-');
+    simName = strcat('UniRandExperiment', suffix);
+    prisonerworld(simName, World, generations, temptation);
+end
 
-% Experiment: Random distribution of defectors and cooperators
-simName = 'UniformRandomExperiment1-2';
-b = 1.2;
-prisonerworld(simName, World, generations, b);
+% I saw that from the UniformRandomExperiments, when b went from 1.7 to
+% 1.8, a lot more noise showed up in the later stages of the population
+% graph. I also saw that when b went from 1.8 to 1.9, the cooperators no
+% longer overtook the defectors, which they had for all b smaller than 1.9.
+% So the following experiments look more closely at b values between 1.7 and 1.9
+b = 1.70:0.02:1.9;
+for i = 1:length(b)
+    temptation = b(i);
+    suffix = strrep(num2str(temptation), '.', '-');
+    simName = strcat('UniRandExperiment', suffix);
+    prisonerworld(simName, World, generations, temptation);
+end
 
-% Experiment: Random distribution of defectors and cooperators
-simName = 'UniformRandomExperiment1-3';
-b = 1.3;
-prisonerworld(simName, World, generations, b);
-
-% Experiment: Random distribution of defectors and cooperators
-simName = 'UniformRandomExperiment1-4';
-b = 1.4;
-prisonerworld(simName, World, generations, b);
-
-% Experiment: Random distribution of defectors and cooperators
-simName = 'UniformRandomExperiment1-5';
-b = 1.5;
-prisonerworld(simName, World, generations, b);
-
-% Experiment: Random distribution of defectors and cooperators
-simName = 'UniformRandomExperiment1-6';
-b = 1.6;
-prisonerworld(simName, World, generations, b);
-
-% Experiment: Random distribution of defectors and cooperators
-simName = 'UniformRandomExperiment1-7';
-b = 1.7;
-prisonerworld(simName, World, generations, b);
-
-% Experiment: Random distribution of defectors and cooperators
-simName = 'UniformRandomExperiment1-8';
-b = 1.8;
-prisonerworld(simName, World, generations, b);
-
-% Experiment: Random distribution of defectors and cooperators
-simName = 'UniformRandomExperiment1-9';
-b = 1.9;
-prisonerworld(simName, World, generations, b);
-
-% Experiment: Random distribution of defectors and cooperators
-simName = 'UniformRandomExperiment2-0';
-b = 2.0;
-prisonerworld(simName, World, generations, b);
+% Ok the change is still very sudden between 1.78 and 1.8. Let's look
+% more closely
+b = 1.78:0.0025:1.81;
+for i = 1:length(b)
+    temptation = b(i);
+    suffix = strrep(num2str(temptation), '.', '-');
+    simName = strcat('UniRandExperiment', suffix);
+    prisonerworld(simName, World, generations, temptation);
+end
