@@ -40,3 +40,16 @@ for i = 1:length(b)
     simName = strcat('UniRandExperiment', suffix);
     prisonerworld(simName, World, generations, temptation);
 end
+
+b = [1.7999, 1.8];
+for i = 1:length(b)
+    temptation = b(i);
+    suffix = strrep(num2str(temptation), '.', '-');
+    simName = strcat('UniRandExperiment', suffix);
+    prisonerworld(simName, World, generations, temptation);
+end
+
+b = 1.8;
+suffix = strrep(num2str(b), '.', '-');
+simName = strcat('UniRandExperimentLong', suffix);
+prisonerworld(simName, World, 500, b);
