@@ -2,8 +2,8 @@
 DEFECTOR = 0; % a constant, don't change this lel
 COOPERATOR = 1; % don't change this either lel
 
-worldSize = 200;
-generations = 200;
+worldSize = 9;
+generations = 5;
 
 % Experiment: 1 Defector in the middle of a World of cooperators 
 simName = 'DoilyExperiment';
@@ -28,4 +28,4 @@ for m = 1:worldSize
         end
     end
 end
-prisonerworld(simName, World, generations, b);
+%prisonerworld(simName, World, generations, b);

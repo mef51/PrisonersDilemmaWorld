@@ -13,8 +13,12 @@ function prisonerworld(simName, World, generations, b)
     S = 0;   % Sucker's Payoff.
     DEFECTOR = 0; % a constant, don't change this lel
     COOPERATOR = 1; % don't change this either lel
-    cmap = copper(2);
-
+    DtoC = 2; % Cooperators who were defectors last round
+    CtoD = 3; % Defectors who were cooperators last round
+    
+    numColors = 4;
+    cmap = [0, 0.26, 0.35; 0.12, 0.54, 0.44; 0.75, 0.86, 0.22; 0.99, 0.45, 0];
+    
     worldSize = size(World, 1); % we're assuming World is a square matrix here
 
     if ~exist('results', 'dir')
@@ -28,27 +32,33 @@ function prisonerworld(simName, World, generations, b)
     legendSpot = 'northoutside';
     fig = figure();
     colormap(cmap);
-    imagesc(World);
+    image(World);
+    
     % a weird trick to get a legend to show up
-    L = line(ones(2), ones(2), 'LineWidth',5);
-    set(L, {'color'}, mat2cell(cmap, ones(1, 2), 3));
-    legend('Defector', 'Cooperator', 'Location', legendSpot, 'Orientation','horizontal');
+    L = line(ones(numColors), ones(numColors), 'LineWidth', 5);
+    set(L, {'color'}, mat2cell(cmap, ones(1, numColors), 3));
+    legend('Cooperator', 'Defector', 'DtoC', 'CtoD', 'Location', legendSpot, 'Orientation','horizontal');
     
     simVideo(1) = getframe(fig);
     close all hidden; % HeatMaps have hidden handles
     for step = 1:generations
         updatePopCount(step);
         % let the new world begin
+        
+        oldWorld = World;
+        
         World = updateWorld(World, score);
         score = updateWorldScores();
+        
+        colorWorld = computeDifferences(oldWorld, World);
 
         fig = figure();
         colormap(cmap);
-        imagesc(World);
-        L = line(ones(2), ones(2), 'LineWidth',5);
-        set(L, {'color'}, mat2cell(cmap, ones(1, 2), 3));
-        legend('Defector', 'Cooperator', 'Location', legendSpot, 'Orientation','horizontal');
-
+        image(colorWorld);
+        L = line(ones(numColors), ones(numColors), 'LineWidth',5);
+        set(L, {'color'}, mat2cell(cmap, ones(1, numColors), 3));
+        legend('Cooperator', 'Defector', 'DtoC', 'CtoD', 'Location', legendSpot, 'Orientation','horizontal');
+        print(strcat('results/', simName,'_State', num2str(step)),'-dpng');
         if step == generations
             print(strcat('results/', simName,'_FinalState'),'-dpng');
         end
@@ -68,6 +78,26 @@ function prisonerworld(simName, World, generations, b)
 
     close all; % finished
 
+    function diffWorld = computeDifferences(initialWorld, finalWorld)
+        % assuming the worlds are the same size.
+        diffWorld = finalWorld;
+        difference = finalWorld - initialWorld;
+        for m = 1:worldSize
+            for n = 1:worldSize
+                if difference(m, n) == DEFECTOR - COOPERATOR
+                    diffWorld(m, n) = DtoC;
+                end
+                if difference(m, n) == COOPERATOR - DEFECTOR
+                    diffWorld(m, n) = CtoD;
+                end
+            end
+        end
+        initialWorld
+        finalWorld
+        difference
+        diffWorld
+    end
+    
     %grabs data for the number of each population at every step
     function updatePopCount(step)
         numCooperators = sum(World(:) == COOPERATOR); % this is such a cool trick haha
