@@ -12,6 +12,7 @@ World = ones(worldSize,worldSize)*COOPERATOR;
 World(round(worldSize/2), round(worldSize/2)) = DEFECTOR;
 prisonerworld(simName, World, generations, b);
 
+% Experiment: Try to do the doily experiment with cooperators in the middle of defectors.
 worldSize = 59;
 generations = 40;
 simName = 'CDoilyExperiment';
